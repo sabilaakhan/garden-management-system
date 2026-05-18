@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fa-solid fa-plant-wilt me-2"></i> My Plants</h2>
+    <a href="{{ url_for('plants.add') }}" class="btn btn-primary"><i class="fa-solid fa-plus me-1"></i> Add Plant</a>
+</div>
+
+{% if plants %}
+<div class="table-responsive bg-white rounded shadow-sm">
+    <table class="table table-hover mb-0">
+        <thead class="table-light">
+            <tr>
+                <th>Name</th>
+                <th>Species</th>
+                <th>Garden</th>
+                <th>Planted Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plant in plants %}
+            <tr>
+                <td><strong>{{ plant.name }}</strong></td>
+                <td>{{ plant.species or '-' }}</td>
+                <td><span class="badge bg-success">{{ plant.garden.name }}</span></td>
+                <td>{{ plant.planted_date or '-' }}</td>
+                <td>
+                    <a href="{{ url_for('plants.edit', plant_id=plant.plant_id) }}" class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-pen"></i></a>
+                    <form action="{{ url_for('plants.delete', plant_id=plant.plant_id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this plant?');">
+                        <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">You haven't added any plants yet. <a href="{{ url_for('plants.add') }}" class="alert-link">Add a plant!</a></div>
+{% endif %}
+{% endblock %}

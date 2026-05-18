@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header">
+                <h4 class="mb-0">Add New Plant</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Plant Name (<small>e.g. Big Tomato</small>)</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Species (<small>e.g. Solanum lycopersicum</small>)</label>
+                        <input type="text" class="form-control" name="species">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Garden</label>
+                        <select class="form-select" name="garden_id" required>
+                            <option value="" disabled selected>Select a garden</option>
+                            {% for garden in gardens %}
+                                <option value="{{ garden.garden_id }}">{{ garden.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Planted Date</label>
+                        <input type="date" class="form-control" name="planted_date">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" name="notes" rows="3"></textarea>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('plants.index') }}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-success">Save Plant</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

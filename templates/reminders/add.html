@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header">
+                <h4 class="mb-0">Add New Reminder</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Plant</label>
+                        <select class="form-select" name="plant_id" required>
+                            <option value="" disabled selected>Select a plant</option>
+                            {% for plant in plants %}
+                                <option value="{{ plant.plant_id }}">{{ plant.name }} ({{ plant.garden.name }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Reminder Type</label>
+                        <select class="form-select" name="reminder_type" required>
+                            <option value="watering">Watering</option>
+                            <option value="fertilizing">Fertilizing</option>
+                            <option value="pruning">Pruning</option>
+                            <option value="harvesting">Harvesting</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Due Date</label>
+                        <input type="date" class="form-control" name="due_date" required>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('reminders.index') }}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-success">Save Reminder</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

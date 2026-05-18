@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header">
+                <h4 class="mb-0">Edit Garden</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Garden Name</label>
+                        <input type="text" class="form-control" name="name" value="{{ garden.name }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Location (Optional)</label>
+                        <input type="text" class="form-control" name="location" value="{{ garden.location or '' }}">
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('gardens.index') }}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-success">Update Garden</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

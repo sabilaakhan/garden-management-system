@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Welcome back, {{ session.username }}!</h2>
+
+<div class="row g-4 mb-4">
+    <!-- Stat Cards -->
+    <div class="col-md-3">
+        <div class="card bg-success text-white h-100">
+            <div class="card-body text-center">
+                <i class="fa-solid fa-seedling fa-3x mb-3"></i>
+                <h5 class="card-title">Total Gardens</h5>
+                <h2>{{ gardens_count }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-info text-white h-100">
+            <div class="card-body text-center">
+                <i class="fa-solid fa-leaf fa-3x mb-3"></i>
+                <h5 class="card-title">Total Plants</h5>
+                <h2>{{ plants_count }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-dark h-100">
+            <div class="card-body text-center">
+                <i class="fa-solid fa-chart-line fa-3x mb-3"></i>
+                <h5 class="card-title">Activities This Week</h5>
+                <h2>{{ recent_logs_count }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card {% if overdue_reminders > 0 %}bg-danger{% else %}bg-primary{% endif %} text-white h-100">
+            <div class="card-body text-center">
+                <i class="fa-solid fa-bell fa-3x mb-3"></i>
+                <h5 class="card-title">Overdue Reminders</h5>
+                <h2>{{ overdue_reminders }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Pending Reminders -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa-solid fa-clock me-2"></i> Upcoming Reminders
+            </div>
+            <div class="card-body">
+                {% if pending_reminders %}
+                    <ul class="list-group list-group-flush">
+                        {% for reminder in pending_reminders %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>{{ reminder.plant.name }}</strong> ({{ reminder.plant.garden.name }})<br>
+                                <span class="badge bg-secondary">{{ reminder.reminder_type }}</span>
+                                <small class="text-muted ms-2">Due: {{ reminder.due_date }}</small>
+                            </div>
+                            <form action="{{ url_for('reminders.mark_done', reminder_id=reminder.reminder_id) }}" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-check"></i></button>
+                            </form>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-muted mb-0">No pending reminders! Your plants are happy.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
