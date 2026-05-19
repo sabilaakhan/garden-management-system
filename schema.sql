@@ -1,7 +1,7 @@
 
 CREATE DATABASE IF NOT EXISTS garden_db;
 USE garden_db;
-CREATE TABLE users (
+CREATE table users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
