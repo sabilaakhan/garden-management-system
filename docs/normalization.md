@@ -1,4 +1,4 @@
-Milestone 2 — Normalization Report
+#Milestone 2 — Normalization Report
 Introduction:
 The database schema for Garden Management System is normalized up to Third Normal Form (3NF) to reduce redundancy, improve consistency, and maintain data integrity.
 
